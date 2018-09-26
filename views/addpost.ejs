@@ -1,0 +1,23 @@
+
+<% include partials/header %>
+
+<div class="ui container">
+<h1>Add Camps</h1>
+
+<form action="/blogs" method="POST">
+    <div class="ui input fluid focus">
+  <input type="text" name="camp[name]" placeholder="Camp name">
+</div>
+     <div class="ui input fluid focus">
+  <input type="text" name="camp[image]" placeholder="Image url">
+</div>
+    <div class="ui input fluid focus">
+  <input type="text" name="camp[desc]" placeholder="Description...">
+</div>
+    <input class="ui purple basic button" type="submit">
+</form>
+
+</div>
+
+<% include partials/footer %>
+
