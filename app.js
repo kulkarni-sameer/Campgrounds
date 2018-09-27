@@ -13,7 +13,7 @@ var methodOverride = require("method-override");
 mongoose.connect("mongodb://localhost/restdb");
 
 app.set("view engine", "ejs");
-var campSchema  = new mongoose.Schema({
+var blogSchema  = new mongoose.Schema({
     name: String,
     image: String,
     desc: String
@@ -21,7 +21,7 @@ var campSchema  = new mongoose.Schema({
 
 app.use(methodOverride("_method"));
 
-var Camps = mongoose.model("Camp", campSchema);
+var blogs = mongoose.model("Blog", blogSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -32,12 +32,12 @@ app.get("/", function(req, res){
 
 app.get("/blogs", function(req, res){
     
-    Camps.find({}, function(err, campsFound){
+    blogs.find({}, function(err, blogsFound){
         if (err){
             console.log(err);
         }
         else {
-             res.render("home", {camps: campsFound});
+             res.render("home", {blogs: blogsFound});
         }
     })
    
@@ -48,7 +48,7 @@ app.get("/blogs/new", function(req, res){
 })
 
 app.post("/blogs", function(req, res){
-    Camps.create(req.body.camp, function(err, addedCamp){
+    blogs.create(req.body.camp, function(err, addedBlog){
         if (err){
             console.log(err);
         }
@@ -59,14 +59,14 @@ app.post("/blogs", function(req, res){
 })
 
 app.get("/blogs/:id",function(req, res){
-    Camps.findById(req.params.id, function(err, foundBlog){
+    blogs.findById(req.params.id, function(err, foundBlog){
         res.render("detailview", {blog: foundBlog})
     })
 })
 
 
 app.get("/blogs/:id/edit", function(req, res){
-    Camps.findById(req.params.id, function(err, editBlog){
+    blogs.findById(req.params.id, function(err, editBlog){
         if(err){
             console.log(err);
         } else {
@@ -77,7 +77,7 @@ app.get("/blogs/:id/edit", function(req, res){
 })
 
 app.put("/blogs/:id", function(req, res){
-    Camps.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updBlog){
+    blogs.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updBlog){
         if(err){
             console.log(err);
         } else {
@@ -88,7 +88,7 @@ app.put("/blogs/:id", function(req, res){
 
 app.post("/addcamp", function(req, res){
     
-    Camps.create(req.body.camp);
+    blogs.create(req.body.camp);
          res.redirect("viewcamps")
     })
    
@@ -97,7 +97,7 @@ app.post("/addcamp", function(req, res){
 
 
 app.get("/blogs/:id/edit", function(req, res){
-    Camps.findById(req.params.id, function(err, editBlog){
+    blogs.findById(req.params.id, function(err, editBlog){
         if(err){
             console.log(err);
         } else {
@@ -108,7 +108,7 @@ app.get("/blogs/:id/edit", function(req, res){
 })
 
 app.delete("/blogs/:id", function(req, res){
-    Camps.findByIdAndDelete(req.params.id, function(err, updBlog){
+    blogs.findByIdAndDelete(req.params.id, function(err, updBlog){
         if(err){
             console.log(err);
         } else {

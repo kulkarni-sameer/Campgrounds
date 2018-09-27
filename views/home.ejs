@@ -2,14 +2,14 @@
 <% include partials/header %>
 <h1>Camps List</h1>
 
-<% camps.forEach(function(camp) { %>
+<% blogs.forEach(function(blog) { %>
     <div>
-        <h2> <%= camp.name %> </h2>
-        <img src="<%= camp.image %> ">
-        <p> <%= camp.desc.substring(0,100) %>... </p>
-        <a href="/blogs/<%= camp._id %>"> Show more </a>
-        <a href="/blogs/<%= camp._id %>/edit"> Edit  </a>
-         <form action="/blogs/<%= camp._id%>?_method=DELETE" method="POST">
+        <h2> <%= blog.name %> </h2>
+        <img src="<%= blog.image %> ">
+        <p> <%= blog.desc.substring(0,100) %>... </p>
+        <a href="/blogs/<%= blog._id %>"> Show more </a>
+        <a href="/blogs/<%= blog._id %>/edit"> Edit  </a>
+         <form action="/blogs/<%= blog._id%>?_method=DELETE" method="POST">
              <input type="submit">
          </form>
     </div>
