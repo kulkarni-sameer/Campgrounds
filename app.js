@@ -58,12 +58,6 @@ app.post("/blogs", function(req, res){
     })
 })
 
-app.get("/blogs/:id",function(req, res){
-    Blog.findById(req.params.id, function(err, foundBlog){
-        res.render("detailview", {blog: foundBlog})
-    })
-})
-
 
 app.get("/blogs/:id", function(req, res){
     Blog.findById(req.params.id, function(err, editBlog){
@@ -96,9 +90,6 @@ app.delete("/blogs/:id", function(req, res){
         }
     })
 })
-
-
-
 
 app.listen(process.env.PORT, process.env.IP, function(req, res){
     console.log("Rest server started!!");
