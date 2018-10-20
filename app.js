@@ -44,7 +44,7 @@ app.get("/blogs", function(req, res){
 })
 
 app.get("/blogs/new", function(req, res){
-    res.render("addpost.ejs")
+    res.render("addpost")
 })
 
 app.post("/blogs", function(req, res){
