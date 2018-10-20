@@ -21,7 +21,7 @@ var blogSchema  = new mongoose.Schema({
 
 app.use(methodOverride("_method"));
 
-var blogs = mongoose.model("Blog", blogSchema);
+var Blog = mongoose.model("Blog", blogSchema);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -31,8 +31,8 @@ app.get("/", function(req, res){
 })
 
 app.get("/blogs", function(req, res){
-    
-    blogs.find({}, function(err, blogsFound){
+
+    Blog.find({}, function(err, blogsFound){
         if (err){
             console.log(err);
         }
@@ -40,7 +40,7 @@ app.get("/blogs", function(req, res){
              res.render("home", {blogs: blogsFound});
         }
     })
-   
+
 })
 
 app.get("/blogs/new", function(req, res){
@@ -48,7 +48,7 @@ app.get("/blogs/new", function(req, res){
 })
 
 app.post("/blogs", function(req, res){
-    blogs.create(req.body.camp, function(err, addedBlog){
+    Blog.create(req.body.camp, function(err, addedBlog){
         if (err){
             console.log(err);
         }
@@ -59,25 +59,25 @@ app.post("/blogs", function(req, res){
 })
 
 app.get("/blogs/:id",function(req, res){
-    blogs.findById(req.params.id, function(err, foundBlog){
+    Blog.findById(req.params.id, function(err, foundBlog){
         res.render("detailview", {blog: foundBlog})
     })
 })
 
 
 app.get("/blogs/:id/edit", function(req, res){
-    blogs.findById(req.params.id, function(err, editBlog){
+    Blog.findById(req.params.id, function(err, editBlog){
         if(err){
             console.log(err);
         } else {
              res.render("editform", {blog: editBlog});
         }
     })
-   
+
 })
 
 app.put("/blogs/:id", function(req, res){
-    blogs.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updBlog){
+    Blog.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updBlog){
         if(err){
             console.log(err);
         } else {
@@ -87,28 +87,28 @@ app.put("/blogs/:id", function(req, res){
 })
 
 app.post("/addcamp", function(req, res){
-    
-    blogs.create(req.body.camp);
+
+    Blog.create(req.body.camp);
          res.redirect("viewcamps")
     })
-   
+
 
 
 
 
 app.get("/blogs/:id/edit", function(req, res){
-    blogs.findById(req.params.id, function(err, editBlog){
+    Blog.findById(req.params.id, function(err, editBlog){
         if(err){
             console.log(err);
         } else {
              res.render("editform", {blog: editBlog});
         }
     })
-   
+
 })
 
 app.delete("/blogs/:id", function(req, res){
-    blogs.findByIdAndDelete(req.params.id, function(err, updBlog){
+    Blog.findByIdAndDelete(req.params.id, function(err, updBlog){
         if(err){
             console.log(err);
         } else {
