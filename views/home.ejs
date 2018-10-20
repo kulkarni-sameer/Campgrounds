@@ -1,18 +1,21 @@
 
 <% include partials/header %>
+<form action="/blogs/new" method=GET>
+  <Button>New Blog</Button>
+</form>
 <h1>Camps List</h1>
 
 <% blogs.forEach(function(blog) { %>
     <div>
         <h2> <%= blog.name %> </h2>
         <img src="<%= blog.image %> ">
-        <p> <%= blog.desc.substring(0,100) %>... </p>
-        <a href="/blogs/<%= blog._id %>"> Show more </a>
-        <a href="/blogs/<%= blog._id %>/edit"> Edit  </a>
+        <p> <%= blog.desc %>... </p>
+        <a href="/blogs/<%= blog._id %>?_method=PUT"> Edit  </a>
          <form action="/blogs/<%= blog._id%>?_method=DELETE" method="POST">
-             <input type="submit">
+             <Button>Delete Blog </Button>
          </form>
     </div>
+    <div>New post new blog post adde reh before that return
 <% }); %>
 
 
