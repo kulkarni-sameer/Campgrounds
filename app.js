@@ -48,7 +48,7 @@ app.get("/blogs/new", function(req, res){
 })
 
 app.post("/blogs", function(req, res){
-    Blog.create(req.body.camp, function(err, addedBlog){
+    Blog.create(req.body.blog, function(err, addedBlog){
         if (err){
             console.log(err);
         }
@@ -65,7 +65,7 @@ app.get("/blogs/:id",function(req, res){
 })
 
 
-app.get("/blogs/:id/edit", function(req, res){
+app.get("/blogs/:id", function(req, res){
     Blog.findById(req.params.id, function(err, editBlog){
         if(err){
             console.log(err);
@@ -77,35 +77,15 @@ app.get("/blogs/:id/edit", function(req, res){
 })
 
 app.put("/blogs/:id", function(req, res){
-    Blog.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updBlog){
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updBlog){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/blogs/")
+            res.redirect("/blogs")
         }
     })
 })
 
-app.post("/addcamp", function(req, res){
-
-    Blog.create(req.body.camp);
-         res.redirect("viewcamps")
-    })
-
-
-
-
-
-app.get("/blogs/:id/edit", function(req, res){
-    Blog.findById(req.params.id, function(err, editBlog){
-        if(err){
-            console.log(err);
-        } else {
-             res.render("editform", {blog: editBlog});
-        }
-    })
-
-})
 
 app.delete("/blogs/:id", function(req, res){
     Blog.findByIdAndDelete(req.params.id, function(err, updBlog){
