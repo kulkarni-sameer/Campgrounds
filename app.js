@@ -9,88 +9,122 @@ var mongoose = require("mongoose");
 app.use(express.static("public"));
 
 var methodOverride = require("method-override");
-
-mongoose.connect("mongodb://localhost/restdb");
-
-app.set("view engine", "ejs");
-var blogSchema  = new mongoose.Schema({
-    name: String,
-    image: String,
-    desc: String
-})
-
 app.use(methodOverride("_method"));
 
-var Blog = mongoose.model("Blog", blogSchema);
+mongoose.connect("mongodb://localhost/campdb");
+
+app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+
+var campSchema  = new mongoose.Schema({
+    name: String,
+    image: String,
+    desc: String,
+    address: String
+    
+})
+var Camp = mongoose.model("Camp", campSchema);
+
+
+var userSchema  = new mongoose.Schema({
+    name: String,
+    email: String,
+    camps : [campSchema]
+})
+var User = mongoose.model("User", userSchema);
+
+var newUser = new User({
+    name: "Sameer",
+    email : "sameer43445@gmail.com"
+   // blogs : [blogSchema]
+})
+
+
+
+newUser.camps.push({
+    name: "ondublog",
+    image: "https://newhampshirestateparks.reserveamerica.com/webphotos/NH/pid270015/0/540x360.jpg",
+    desc : "lets try if this works",
+    address : "1019 E uni dr"
+})
+
+newUser.save(function(err, user){
+    if(err){
+        console.log(err);
+    } else {
+        console.log(user);
+    }
+});
 
 
 app.get("/", function(req, res){
     res.redirect("/blogs");
 })
 
-app.get("/blogs", function(req, res){
+app.get("/campgrounds", function(req, res){
 
-    Blog.find({}, function(err, blogsFound){
+    Camp.find({}, function(err, campsFound){
         if (err){
             console.log(err);
         }
         else {
-             res.render("home", {blogs: blogsFound});
+             res.render("home", {camps: campsFound});
         }
     })
 
 })
 
-app.get("/blogs/new", function(req, res){
+app.get("/camps/new", function(req, res){
     res.render("addpost")
 })
 
-app.post("/blogs", function(req, res){
-    Blog.create(req.body.blog, function(err, addedBlog){
+app.post("/camps", function(req, res){
+    Camp.create(req.body.camp, function(err, addedCamp){
         if (err){
             console.log(err);
         }
         else {
-            res.redirect("/blogs")
+            res.redirect("/camps")
         }
     })
 })
 
 
-app.get("/blogs/:id", function(req, res){
-    Blog.findById(req.params.id, function(err, editBlog){
+app.get("/camps/:id", function(req, res){
+    Camp.findById(req.params.id, function(err, editCamp){
         if(err){
             console.log(err);
         } else {
-             res.render("editform", {blog: editBlog});
+             res.render("editform", {camp: editCamp});
         }
     })
 
 })
 
-app.put("/blogs/:id", function(req, res){
-    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updBlog){
+app.put("/camps/:id", function(req, res){
+    Camp.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updCamp){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/blogs")
+            res.redirect("/camps")
         }
     })
 })
 
 
-app.delete("/blogs/:id", function(req, res){
-    Blog.findByIdAndDelete(req.params.id, function(err, updBlog){
+app.delete("/camps/:id", function(req, res){
+    Camp.findByIdAndDelete(req.params.id, function(err, updCamp){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/blogs")
+            res.redirect("/camps")
         }
     })
 })
 
 app.listen(3000, 'localhost', function(req, res){
-    console.log("Rest server started!!");
+    console.log("Server started!!");
 })

@@ -1,20 +1,33 @@
 
 <% include partials/header %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 <form action="/blogs/new" method=GET>
-  <Button>New Blog</Button>
+  <Button class="btn btn-primary">New Blog</Button>
 </form>
+</nav>
 
 <% blogs.forEach(function(blog) { %>
-    <div>
-        <h2> <%= blog.name %> </h2>
+<div class="container">
+<div class="row">
+   <div class="card col-md-4 col-sm-6>
+        <h2 class="card-title"> <%= blog.name %> </h2>
         <img src="<%= blog.image %> ">
-        <p> <%= blog.desc %> </p>
+        <p class="card-text"> <%= blog.desc %> </p>
+          <p> <%= blog.address %> </p>
         <a href="/blogs/<%= blog._id %>?_method=PUT"> Edit  </a>
          <form action="/blogs/<%= blog._id%>?_method=DELETE" method="POST">
-             <Button>Delete Blog </Button>
+             <Button class="btn btn-danger">Delete Blog </Button>
          </form>
     </div>
+    </div>
+    </div>
 <% }); %>
+
+
 
 
 <% include partials/footer %>
