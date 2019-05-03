@@ -1,2 +1,2 @@
-# Blog-Application
-A blog application with ability to create, update and delete blog posts using REST. Created using express, node,  mongoDB, semanticUI.
+CrowdSourced Campgrounds
+A full-stack web application which helps people share information about campgrounds
