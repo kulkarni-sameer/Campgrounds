@@ -1,8 +1,23 @@
-body{
-    background: purple;
-    margin: 0 auto;
-}
+
+body { padding-top: 70px; }
+
 .thumbnail img {
     height:200px;
     width:100%;
+}
+
+.vertical-center {
+  
+  display: flex;
+  
+  text-align: center;
+}
+
+.addform {
+padding-top: 100px;
+}
+
+.campdet {
+
+  padding-right: 100px;
 }

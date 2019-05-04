@@ -1,4 +1,14 @@
 
+<div class="container">
+<div class="jumbotron vertical-center">
+             <div class="container">
+  <h1 class="display-4">Welcome to CrowdSourced Campgrounds!</h1>
+  <p class="lead">Add information about any campground or explore the existing campgrounds</p>
+  <hr class="my-4">
+  <a class="btn btn-primary btn-lg" href="/campgrounds/new" role="button">Add Campground</a>
+</div>
+</div>
+</div>
 <% include partials/header %>
 
 
@@ -12,8 +22,8 @@
                </div>
   <div class="card-body">
     <h5 class="card-title">Card title</h5>
-    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    
+    <a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">Explore</a>
   </div>
    <div class="card-footer">
       <small class="text-muted">Added by .........</small>
