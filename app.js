@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var campSchema  = new mongoose.Schema({
     name: String,
     image: String,
-    desc: String,
+    description: String,
     address: String
     
 })
@@ -124,6 +124,6 @@ app.delete("/campgrounds/:id", function(req, res){
     })
 })
 
-app.listen(3000, 'localhost', function(req, res){
+app.listen(process.env.PORT || 3000, function(req, res){
     console.log("Server started!!");
 })
