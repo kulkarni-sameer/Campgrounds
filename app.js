@@ -39,7 +39,6 @@ var User = mongoose.model("User", userSchema);
 var newUser = new User({
     name: "Sameer",
     email : "sameer43445@gmail.com"
-   // blogs : [blogSchema]
 })
 
 
@@ -61,7 +60,7 @@ newUser.save(function(err, user){
 
 
 app.get("/", function(req, res){
-    res.redirect("/blogs");
+    res.redirect("/campgrounds");
 })
 
 app.get("/campgrounds", function(req, res){
@@ -77,23 +76,23 @@ app.get("/campgrounds", function(req, res){
 
 })
 
-app.get("/camps/new", function(req, res){
+app.get("/campgrounds/new", function(req, res){
     res.render("addpost")
 })
 
-app.post("/camps", function(req, res){
+app.post("/campgrounds", function(req, res){
     Camp.create(req.body.camp, function(err, addedCamp){
         if (err){
             console.log(err);
         }
         else {
-            res.redirect("/camps")
+            res.redirect("/campgrounds")
         }
     })
 })
 
 
-app.get("/camps/:id", function(req, res){
+app.get("/campgrounds/:id", function(req, res){
     Camp.findById(req.params.id, function(err, editCamp){
         if(err){
             console.log(err);
@@ -104,23 +103,23 @@ app.get("/camps/:id", function(req, res){
 
 })
 
-app.put("/camps/:id", function(req, res){
+app.put("/campgrounds/:id", function(req, res){
     Camp.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updCamp){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/camps")
+            res.redirect("/campgrounds")
         }
     })
 })
 
 
-app.delete("/camps/:id", function(req, res){
+app.delete("/campgrounds/:id", function(req, res){
     Camp.findByIdAndDelete(req.params.id, function(err, updCamp){
         if(err){
             console.log(err);
         } else {
-            res.redirect("/camps")
+            res.redirect("/campgrounds")
         }
     })
 })
