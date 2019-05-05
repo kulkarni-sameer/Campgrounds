@@ -36,21 +36,29 @@ var marker = new google.maps.Marker({position: pos, map: map});
   <div class="card-body">
     <h5 class="card-title"><%=camp.name%></h5>
     <p class="card-text"><%=camp.description%></p>
+    <div class="btn-toolbar" role="group" aria-label="Basic example">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
     <form action="/campgrounds/<%=camp._id%>/comments" method=GET>
       <button class="btn btn-primary" type="submit">Add Comment </button>
     </form>
+    </div>
+
 
 
 
 <%  if(us === camp.user){ %>
+  <div class="btn-group mr-2" role="group" aria-label="First group">
   <form action="/campgrounds/<%=camp._id%>?_method=DELETE" method=POST>
       <button class="btn btn-danger" type="submit">Delete </button>
     </form>
-
+    </div>
+<div class="btn-group mr-2" role="group" aria-label="Second group">
     <form action="/campgroundedit/<%=camp._id%>" method=GET>
           <button class="btn btn-dark" type="submit">Update </button>
       </form>
+      </div>
 <%    } %>
+</div>
 
   </div>
 </div>
