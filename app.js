@@ -41,7 +41,7 @@ app.use(express.static("public"));
 var methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
-mongoose.connect("mongodb://localhost/campdb");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/campdb");
 
 app.set("view engine", "ejs");
 
