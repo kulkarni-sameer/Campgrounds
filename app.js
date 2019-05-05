@@ -113,7 +113,7 @@ app.post("/campgrounds", function(req, res){
             res.redirect("/campgrounds")
                 }
             })
-           
+
         }
     })
 })
@@ -139,7 +139,7 @@ app.get("/campgrounds/:id/comments", function(req, res){
         res.render("addcmnt", {camp : camp})
     }
     })
-   
+
 })
 
 app.post("/campgrounds/:id/comments", function(req, res){
@@ -158,8 +158,9 @@ app.post("/campgrounds/:id/comments", function(req, res){
                      foundcamp.save();
                      console.log("added new comment");
             res.redirect("/campgrounds/"+foundcamp._id);
+
                 }
-    
+
    })
      }
 
@@ -167,6 +168,7 @@ app.post("/campgrounds/:id/comments", function(req, res){
 });
 
 app.put("/campgrounds/:id", function(req, res){
+
     Camp.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updCamp){
         if(err){
             console.log(err);
@@ -174,6 +176,17 @@ app.put("/campgrounds/:id", function(req, res){
             res.redirect("/campgrounds")
         }
     })
+})
+
+app.post("/search", function(req, res){
+var t = req.body.term;
+  Camp.find({"name": {$regex: t+'.*'}}, function(err, camp){
+    if(err){
+      console.log(err);
+    } else {
+      res.render("srchcamps", {camps:camp});
+    }
+  })
 })
 
 
