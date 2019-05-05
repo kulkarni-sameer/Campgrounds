@@ -15,8 +15,17 @@ body { padding-top: 70px; }
 
 .addform {
 padding-top: 100px;
+width: 50%;
 }
-
+.signup {
+  padding-top: 100px;
+   text-align:center;
+  width: 20%;
+    margin: 0 auto;
+}
+button{
+    margin: 0 auto;
+}
 .campdet {
   padding-right: 70px;
 }

@@ -1,8 +1,11 @@
 
 <% include partials/header %>
 
-<div class = "addform">
 
+
+<div class = "addform">
+<h2> Edit Campground </h2>
+<div></div>
 <form action="/campgrounds/<%=camp._id%>?_method=PUT" method=POST>
   <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -25,6 +28,15 @@
   <input type="text" class="form-control" value="<%=camp.description%>" name=camp[description] placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 </div>
 
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text">$</span>
+  </div>
+  <input type="text" class="form-control" value="<%=camp.price%>" name=camp[price] aria-label="Amount (to the nearest dollar)">
+  <div class="input-group-append">
+    <span class="input-group-text">/night</span>
+  </div>
+</div>
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
@@ -45,6 +57,9 @@
 
 
   <button type="submit" class="btn btn-primary">Submit</button>
+
+
 </form>
+
 </div>
 <% include partials/footer %>

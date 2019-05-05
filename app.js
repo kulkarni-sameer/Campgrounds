@@ -102,7 +102,7 @@ app.get('/', (req, res) => res.sendFile('index.html', { root : __dirname}));
 
 
 app.get("/login", function(req, res){
-  res.sendFile('auth.html', { root : __dirname});
+  res.sendFile('login.html', { root : __dirname});
 })
 
 app.get("/signup", function(req, res){
