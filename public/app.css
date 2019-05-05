@@ -7,9 +7,9 @@ body { padding-top: 70px; }
 }
 
 .vertical-center {
-  
+
   display: flex;
-  
+
   text-align: center;
 }
 
@@ -21,69 +21,55 @@ padding-top: 100px;
   padding-right: 70px;
 }
 
-.detailBox {
-    width:320px;
-    border:1px solid #bbb;
-    margin:50px;
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
-.titleBox {
-    background-color:#fdfdfd;
-    padding:10px;
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
-.titleBox label{
-  color:#444;
-  margin:0;
-  display:inline-block;
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
 }
-
-.commentBox {
-    padding:10px;
-    border-top:1px dotted #bbb;
+.login-form-2{
+    padding: 5%;
+    background: #0062cc;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
-.commentBox .form-group:first-child, .actionBox .form-group:first-child {
-    width:80%;
+.login-form-2 h3{
+    text-align: center;
+    color: #fff;
 }
-.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
-    width:18%;
+.login-container form{
+    padding: 10%;
 }
-.actionBox .form-group * {
-    width:100%;
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
 }
-.taskDescription {
-    margin-top:10px 0;
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
 }
-.commentList {
-    padding:0;
-    list-style:none;
-    max-height:200px;
-    overflow:auto;
+.login-form-2 .btnSubmit{
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
 }
-.commentList li {
-    margin:0;
-    margin-top:10px;
+.login-form-2 .ForgetPwd{
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
 }
-.commentList li > div {
-    display:table-cell;
-}
-.commenterImage {
-    width:30px;
-    margin-right:5px;
-    height:100%;
-    float:left;
-}
-.commenterImage img {
-    width:100%;
-    border-radius:50%;
-}
-.commentText p {
-    margin:0;
-}
-.sub-text {
-    color:#aaa;
-    font-family:verdana;
-    font-size:11px;
-}
-.actionBox {
-    border-top:1px dotted #bbb;
-    padding:10px;
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
 }

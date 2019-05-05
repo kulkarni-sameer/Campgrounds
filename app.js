@@ -30,11 +30,11 @@ passport.deserializeUser(function(id, cb) {
 var mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const UserDetail = new Schema({
+const UserSchema = new Schema({
       username: String,
       password: String
     });
-const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo');
+const User = mongoose.model('Users', UserSchema, 'Users');
 
 app.use(express.static("public"));
 
@@ -49,7 +49,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-
+// var userInfoSchema = new mongoose.Schema({
+//   username: String,
+//   password : String
+// }
+// )
+//
+// var UserInfo = mongoose.model("UserInfo", userInfoSchema);
 
 var commentSchema = new mongoose.Schema({
     text : String,
@@ -73,19 +79,6 @@ var campSchema  = new mongoose.Schema({
 var Camp = mongoose.model("Camp", campSchema);
 
 
-var userSchema  = new mongoose.Schema({
-    name: String,
-    email: String,
-    camps : [campSchema]
-})
-var User = mongoose.model("User", userSchema);
-
-var newUser = new User({
-    name: "Sameer",
-    email : "sameer43445@gmail.com"
-})
-
-
 
 
 
@@ -104,13 +97,36 @@ var newUser = new User({
 //     }
 // });
 
-app.get('/', (req, res) => res.sendFile('auth.html', { root : __dirname}));
+app.get('/', (req, res) => res.render('landing.ejs', { root : __dirname}));
+
+
+app.get("/login", function(req, res){
+  res.sendFile('auth.html', { root : __dirname});
+})
+
+app.get("/signup", function(req, res){
+  res.sendFile('signup.html', { root : __dirname});
+})
+
+app.post("/signup", function(req, res){
+  User.create({
+    username: req.body.username,
+    password : req.body.password
+  }, function(err, blah){
+    if(err){
+      console.log(err);
+    } else {
+      uname = req.body.username;
+      res.redirect("/campgrounds");
+    }
+  })
+})
 
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-      UserDetails.findOne({
+      User.findOne({
         username: username
       }, function(err, user) {
         if (err) {
@@ -136,16 +152,29 @@ app.post('/',
     res.redirect('/campgrounds');
   });
 
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
+
+  function loggedIn(req, res, next) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 // app.get("/", function(req, res){
 //     res.redirect("/campgrounds");
 // })
 
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-app.get("/campgrounds", function(req, res){
 
+app.get("/campgrounds", function(req, res){
+  console.log(uname);
+  if(uname == undefined){
+    res.redirect("/");
+  }
     Camp.find({}, function(err, campsFound){
         if (err){
 

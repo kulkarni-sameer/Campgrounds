@@ -39,6 +39,19 @@ var marker = new google.maps.Marker({position: pos, map: map});
     <form action="/campgrounds/<%=camp._id%>/comments" method=GET>
       <button class="btn btn-primary" type="submit">Add Comment </button>
     </form>
+
+
+
+<%  if(us === camp.user){ %>
+  <form action="/campgrounds/<%=camp._id%>?_method=DELETE" method=POST>
+      <button class="btn btn-danger" type="submit">Delete </button>
+    </form>
+
+    <form action="/campgroundedit/<%=camp._id%>" method=GET>
+          <button class="btn btn-dark" type="submit">Update </button>
+      </form>
+<%    } %>
+
   </div>
 </div>
 
