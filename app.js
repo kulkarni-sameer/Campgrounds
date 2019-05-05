@@ -184,7 +184,7 @@ app.get("/campgrounds/:id", function(req, res){
             console.log(err);
         } else {
             console.log(editCamp);
-             res.render("campdetail", {camp: editCamp});
+             res.render("campdetail", {camp: editCamp, us:uname});
         }
     })
 
