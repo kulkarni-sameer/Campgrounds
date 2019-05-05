@@ -4,7 +4,37 @@ var app = express();
 
 var bodyParser = require("body-parser");
 
+const passport = require('passport');
+app.use(passport.initialize());
+app.use(passport.session());
+
+var logout = require('express-passport-logout');
+
+
+var uname;
+
+
+app.get('/success', (req, res) => res.send("Welcome "+req.query.username+"!!"));
+app.get('/error', (req, res) => res.send("error logging in"));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  User.findById(id, function(err, user) {
+    cb(err, user);
+  });
+});
+
 var mongoose = require("mongoose");
+
+const Schema = mongoose.Schema;
+const UserDetail = new Schema({
+      username: String,
+      password: String
+    });
+const UserDetails = mongoose.model('userInfo', UserDetail, 'userInfo');
 
 app.use(express.static("public"));
 
@@ -19,6 +49,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
+
+
 var commentSchema = new mongoose.Schema({
     text : String,
     author : String
@@ -27,6 +59,7 @@ var commentSchema = new mongoose.Schema({
 var Comment = mongoose.model("Comment", commentSchema);
 
 var campSchema  = new mongoose.Schema({
+  user : String,
     name: String,
     image: String,
     description: String,
@@ -71,26 +104,63 @@ var newUser = new User({
 //     }
 // });
 
+app.get('/', (req, res) => res.sendFile('auth.html', { root : __dirname}));
 
-app.get("/", function(req, res){
-    res.redirect("/campgrounds");
-})
+const LocalStrategy = require('passport-local').Strategy;
 
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+      UserDetails.findOne({
+        username: username
+      }, function(err, user) {
+        if (err) {
+          return done(err);
+        }
+
+        if (!user) {
+          return done(null, false);
+        }
+
+        if (user.password != password) {
+          return done(null, false);
+        }
+        return done(null, user);
+      });
+  }
+));
+
+app.post('/',
+  passport.authenticate('local', { failureRedirect: '/error' }),
+  function(req, res) {
+  uname = req.user.username;
+    res.redirect('/campgrounds');
+  });
+
+// app.get("/", function(req, res){
+//     res.redirect("/campgrounds");
+// })
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 app.get("/campgrounds", function(req, res){
 
     Camp.find({}, function(err, campsFound){
         if (err){
+
             console.log(err);
         }
         else {
-             res.render("home", {camps: campsFound});
+        //  console.log("HIIII sirrr" +username);
+             res.render("home", {camps: campsFound, us:uname});
         }
     })
 
 })
 
 app.get("/campgrounds/new", function(req, res){
-    res.render("addpost")
+    res.render("addpost",{us : uname})
 })
 
 app.post("/campgrounds", function(req, res){
@@ -99,24 +169,13 @@ app.post("/campgrounds", function(req, res){
             console.log(err);
         }
         else {
-            console.log("added campground");
-            Comment.create({
-                text : "This place is great",
-                author : "Sameer"
-            }, function(err, comment){
-                if(err){
-                    console.log(err);
-                } else {
-                     addedCamp.comments.push(comment);
-                     addedCamp.save();
-                     console.log("added new comment");
+              console.log("lmao" +uname);
+
             res.redirect("/campgrounds")
                 }
             })
 
-        }
-    })
-})
+        })
 
 
 app.get("/campgrounds/:id", function(req, res){
@@ -137,6 +196,17 @@ app.get("/campgrounds/:id/comments", function(req, res){
         console.log(err);
     } else {
         res.render("addcmnt", {camp : camp})
+    }
+    })
+
+})
+
+app.get("/campgroundedit/:id", function(req, res){
+    Camp.findById(req.params.id, function(err, camp ){
+         if(err){
+        console.log(err);
+    } else {
+        res.render("editform", {camp : camp})
     }
     })
 

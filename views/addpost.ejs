@@ -4,13 +4,21 @@
 <div class = "addform">
 
 <form action="/campgrounds" method=POST>
+
   <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text"  id="basic-addon1">Name :</span>
   </div>
-  <input type="text" class="form-control" name=camp[name] placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+  <input type="text" class="form-control" name=camp[user] value=<%=us%> placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly>
 </div>
-  
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text"  id="basic-addon1">Name :</span>
+  </div>
+  <input type="text" class="form-control" name=camp[name] placeholder="Campground Name" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+
   <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">Image URL :</span>
@@ -30,7 +38,7 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">Location :</span>
   </div>
-  
+
   <input id="locationTextField" class="form-control" name=camp[address] type="text" size="50" aria-label="Username" aria-describedby="basic-addon1">
 
         <script>

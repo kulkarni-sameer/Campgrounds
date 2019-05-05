@@ -1,0 +1,68 @@
+
+
+<% include partials/header %>
+<div class="campdet">
+
+
+<div class="row">
+
+
+  <div class="col-sm-4">
+ <div id="googleMap" style="width:200px;height:400px;"></div>
+  <script>
+  var loc= "<%= camp.address %>";
+
+var geocoder = new google.maps.Geocoder();
+
+geocoder.geocode( { 'address': loc}, function(results, status) {
+  if (status == google.maps.GeocoderStatus.OK)
+  {
+      var mapProp= {
+  center:new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng()),
+  zoom:18,
+};
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var pos = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+var marker = new google.maps.Marker({position: pos, map: map});
+  }
+});
+</script>
+  </div>
+
+
+  <div class="col-sm-8">
+<div class="card" style="width: 40rem;">
+  <img class="card-img-top" src="<%=camp.image%>" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title"><%=camp.name%></h5>
+    <p class="card-text"><%=camp.description%></p>
+    <form action="/campgrounds/<%=camp._id%>/comments" method=GET>
+      <button class="btn btn-primary" type="submit">Add Comment </button>
+    </form>
+  </div>
+</div>
+
+<div class="container">
+  <p><b>Comments : </b></p>
+<% camp.comments.forEach(function(comment){ %>
+  <div class="card bg-light mb-3" style="max-width: 48rem;">
+    <div class="card-header"><%=comment.author%> says:</div>
+    <div class="card-body">
+
+      <p class="card-text"><%=comment.text%></p>
+    </div>
+  </div>
+
+<% }) %>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<% include partials/footer %>

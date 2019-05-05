@@ -13,22 +13,26 @@
 
 
 
-  <%   camps.forEach(function(camp){ %>
+<%   camps.forEach(function(camp){ %>
 
 <div class="col-auto mb-4">
             <div class="card" style="width: 18rem;">
              <div class="thumbnail">
                <img class="card-img-top" src="<%=camp.image%>" alt="Card image cap">
                </div>
+  <div class="card-body">
+    <h5 class="card-title"><%=camp.name%></h5>
 
+    <a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">Explore</a>
+  </div>
    <div class="card-footer">
-      <small class="text-muted">Added by <%=camp.user%> </small>
+      <small class="text-muted">Added by .........</small>
     </div>
             </div>
         </div>
 
+ <%  }) %>
 
-   <%  }) %>
 
 
 

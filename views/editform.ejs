@@ -1,25 +1,50 @@
 
 <% include partials/header %>
 
-<div class="ui container">
-<h1>Edit Campground</h1>
+<div class = "addform">
 
-<form action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST">
-    <div class="ui input fluid focus">
-  <input type="text" name="blog[name]" value="<%= blog.name %>">
+<form action="/campgrounds/<%=camp._id%>?_method=PUT" method=POST>
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text"  id="basic-addon1">Name :</span>
+  </div>
+  <input type="text" class="form-control" value=<%=camp.name%> name=camp[name] placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 </div>
-     <div class="ui input fluid focus">
-  <input type="text" name="blog[image]" value="<%= blog.image %>">
+
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Image URL :</span>
+  </div>
+  <input type="text" class="form-control" value=<%=camp.image%> name=camp[image] placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 </div>
-    <div class="ui input fluid focus">
-  <input type="text" name="blog[desc]" value="<%= blog.desc %>">
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Description :</span>
+  </div>
+  <input type="text" class="form-control" value=<%=camp.description%> name=camp[description] placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 </div>
-<div class="ui input fluid focus">
-<input type="text" name="blog[address]" value="<%= blog.address %>">
+
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Location :</span>
+  </div>
+
+  <input id="locationTextField" class="form-control" value=<%=camp.address%> name=camp[address] type="text" size="50" aria-label="Username" aria-describedby="basic-addon1">
+
+        <script>
+            function init() {
+                var input = document.getElementById('locationTextField');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+            }
+
+            google.maps.event.addDomListener(window, 'load', init);
+        </script>
 </div>
-    <input id="sbmtbtn" class="ui purple basic button" type="submit">
+
+
+  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-
 </div>
-
 <% include partials/footer %>
