@@ -19,12 +19,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
+var commentSchema = new mongoose.Schema({
+    text : String,
+    author : String
+});
+
+var Comment = mongoose.model("Comment", commentSchema);
+
 var campSchema  = new mongoose.Schema({
     name: String,
     image: String,
     description: String,
-    address: String
-    
+    address: String,
+    comments : [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref : Comment
+    }
+    ]
 })
 var Camp = mongoose.model("Camp", campSchema);
 
@@ -43,20 +54,22 @@ var newUser = new User({
 
 
 
-newUser.camps.push({
-    name: "ondublog",
-    image: "https://newhampshirestateparks.reserveamerica.com/webphotos/NH/pid270015/0/540x360.jpg",
-    desc : "lets try if this works",
-    address : "1019 E uni dr"
-})
 
-newUser.save(function(err, user){
-    if(err){
-        console.log(err);
-    } else {
-        console.log(user);
-    }
-});
+
+// newUser.camps.push({
+//     name: "ondublog",
+//     image: "https://newhampshirestateparks.reserveamerica.com/webphotos/NH/pid270015/0/540x360.jpg",
+//     desc : "lets try if this works",
+//     address : "1019 E uni dr"
+// })
+
+// newUser.save(function(err, user){
+//     if(err){
+//         console.log(err);
+//     } else {
+//         console.log(user);
+//     }
+// });
 
 
 app.get("/", function(req, res){
@@ -86,22 +99,72 @@ app.post("/campgrounds", function(req, res){
             console.log(err);
         }
         else {
+            console.log("added campground");
+            Comment.create({
+                text : "This place is great",
+                author : "Sameer"
+            }, function(err, comment){
+                if(err){
+                    console.log(err);
+                } else {
+                     addedCamp.comments.push(comment);
+                     addedCamp.save();
+                     console.log("added new comment");
             res.redirect("/campgrounds")
+                }
+            })
+           
         }
     })
 })
 
 
 app.get("/campgrounds/:id", function(req, res){
-    Camp.findById(req.params.id, function(err, editCamp){
+    Camp.findById(req.params.id).populate("comments").exec(function(err, editCamp){
         if(err){
             console.log(err);
         } else {
+            console.log(editCamp);
              res.render("campdetail", {camp: editCamp});
         }
     })
 
 })
+
+app.get("/campgrounds/:id/comments", function(req, res){
+    Camp.findById(req.params.id, function(err, camp ){
+         if(err){
+        console.log(err);
+    } else {
+        res.render("addcmnt", {camp : camp})
+    }
+    })
+   
+})
+
+app.post("/campgrounds/:id/comments", function(req, res){
+   Camp.findById(req.params.id, function(err, foundcamp){
+    if(err){
+        console.log(err);
+    } else {
+         Comment.create({
+                text : req.body.comment.text,
+                author : req.body.comment.author
+            }, function(err, comment){
+                if(err){
+                    console.log(err);
+                } else {
+                     foundcamp.comments.push(comment);
+                     foundcamp.save();
+                     console.log("added new comment");
+            res.redirect("/campgrounds/"+foundcamp._id);
+                }
+    
+   })
+     }
+
+})
+});
 
 app.put("/campgrounds/:id", function(req, res){
     Camp.findByIdAndUpdate(req.params.id, req.body.camp, function(err, updCamp){
