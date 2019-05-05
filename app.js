@@ -97,7 +97,7 @@ var Camp = mongoose.model("Camp", campSchema);
 //     }
 // });
 
-app.get('/', (req, res) => res.render('landing.ejs', { root : __dirname}));
+app.get('/', (req, res) => res.sendFile('index.html', { root : __dirname}));
 
 
 app.get("/login", function(req, res){
