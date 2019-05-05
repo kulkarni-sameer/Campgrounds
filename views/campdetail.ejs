@@ -34,7 +34,11 @@ var marker = new google.maps.Marker({position: pos, map: map});
 <div class="card" style="width: 40rem;">
   <img class="card-img-top" src="<%=camp.image%>" alt="Card image cap">
   <div class="card-body">
+
     <h5 class="card-title"><%=camp.name%></h5>
+
+      <h4>   <span class="badge badge-secondary">$ <%=camp.price%> / night</span></h4>
+
     <p class="card-text"><%=camp.description%></p>
     <div class="btn-toolbar" role="group" aria-label="Basic example">
       <div class="btn-group mr-2" role="group" aria-label="First group">
@@ -42,6 +46,8 @@ var marker = new google.maps.Marker({position: pos, map: map});
       <button class="btn btn-primary" type="submit">Add Comment </button>
     </form>
     </div>
+
+
 
 
 

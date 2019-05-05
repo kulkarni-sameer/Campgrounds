@@ -69,6 +69,7 @@ var campSchema  = new mongoose.Schema({
     name: String,
     image: String,
     description: String,
+    price : String,
     address: String,
     comments : [{
         type: mongoose.Schema.Types.ObjectId,
