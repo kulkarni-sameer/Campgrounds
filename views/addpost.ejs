@@ -2,14 +2,14 @@
 <% include partials/header %>
 
 <div class = "addform">
-
+<h2> Add Campground </h2>
 <form action="/campgrounds" method=POST>
 
   <div class="input-group mb-3">
-  <div class="input-group-prepend">
+  <!-- <div class="input-group-prepend">
     <span class="input-group-text"  id="basic-addon1">User Name :</span>
-  </div>
-  <input type="text" class="form-control" name=camp[user] value=<%=us%> placeholder="User name" aria-label="Username" aria-describedby="basic-addon1" readonly>
+  </div> -->
+  <input type="hidden" class="form-control" name=camp[user] value=<%=us%> placeholder="User name" aria-label="Username" aria-describedby="basic-addon1" readonly>
 </div>
 
   <div class="input-group mb-3">
@@ -30,14 +30,14 @@
   <div class="input-group-prepend">
     <span class="input-group-text" id="basic-addon1">Description :</span>
   </div>
-  <input type="text" class="form-control" name=camp[description] placeholder="Describe Campground" aria-label="Username" aria-describedby="basic-addon1">
+  <textarea class="form-control" name=camp[description] placeholder="Describe Campground" aria-label="With textarea"></textarea>
 </div>
 
 <div class="input-group mb-3">
   <div class="input-group-prepend">
     <span class="input-group-text">$</span>
   </div>
-  <input type="text" class="form-control" name=camp[price] aria-label="Amount (to the nearest dollar)">
+  <input type="text" class="form-control" placeholder="Price" name=camp[price] aria-label="Amount (to the nearest dollar)">
   <div class="input-group-append">
     <span class="input-group-text">/night</span>
   </div>
